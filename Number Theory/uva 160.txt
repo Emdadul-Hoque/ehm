@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int primes[]={2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97};
+int divisor[110][110]={0};
+
+void prime_divisor()
+{
+    int i, j, n;
+
+    for(i=2; i<=100; i++){
+        for(j=0; primes[j]<=i; j++){
+            n=i;
+            if(n%primes[j]==0){
+                while(n%primes[j]==0){
+                    n/=primes[j];
+                    divisor[i][primes[j]]+=1;
+                }
+            }
+        }
+    }
+}
+
+int main()
+{
+    int i, num;
+
+    prime_divisor();
+
+    while(scanf("%d",&num)==1){
+
+        if(num==0) return 0;
+
+        for(i=0; i<=100; i++){
+            if(divisor[num][i]!=0) printf("%d ",divisor[num][i]);
+        }
+
+    }
+    return 0;
+}
