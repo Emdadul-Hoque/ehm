@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll factors_in_factorial(ll n, ll p)
+{
+    ll sum=0;
+
+    while(n){
+        sum+=(n/p);
+        n/=p;
+    }
+
+    return sum;
+}
+ll trailingzero_base_b(ll n, ll b)
+{
+    ll i, ans, freq, power;
+
+    ans=2147483647;
+    for(i=2; i<=b; i++){
+        if(b%i==0){
+            freq=0;
+            while(b%i==0){
+                freq++;
+                b/=i;
+            }
+            power=factors_in_factorial(n,i);
+            ans=min(ans, power/freq);
+        }
+    }
+
+    return ans;
+}
+int main()
+{
+    int zero;
+    ll i, n, b;
+    double ans;
+
+    while(scanf("%I64d%I64d",&n,&b)==2){
+        zero=trailingzero_base_b(n,b);
+        ans=0;
+        for (i=1;i<=n;i++){
+            ans+=log(i);
+        }
+        ans/=log(b);
+        ans+=1.0;
+        ans=floor(ans);
+        printf("%d %d\n",zero,(int)ans);
+    }
+    return 0;
+}

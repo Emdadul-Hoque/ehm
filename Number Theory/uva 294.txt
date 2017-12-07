@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define size_n 35000
+#define size_p 35000
+
+bool flag[size_n+5];
+int primes[size_p+5];
+
+void sieve()
+{
+    int i, j, total=0, val;
+
+    for(i=2; i<=size_n; i++) flag[i]=1;
+
+    val=sqrt(size_n)+1;
+
+    for(i=2; i<val; i++)
+    {
+        if(flag[i])
+        {
+            for(j=i; j*i<=size_n; j++)
+            {
+                flag[i*j]=0;
+            }
+        }
+    }
+
+    for(i=2; i<=size_n; i++)
+    {
+        if(flag[i])
+        {
+            primes[total++]=i;
+        }
+    }
+}
+
+int divisor(int n)
+{
+    int i, val, cnt, sum;
+
+    val=sqrt(n)+1;
+    sum=1;
+    for(i=0; primes[i]<val; i++){
+        if(n%primes[i]==0){
+            cnt=0;
+            while(n%primes[i]==0){
+                n/=primes[i];
+                cnt++;
+            }
+            sum*=(cnt+1);
+        }
+    }
+
+    if(n>1) sum=sum*2;
+
+    return sum;
+}
+
+
+int main()
+{
+    sieve();
+    int i, tst, l, u, num, large, large_divisor;
+    scanf("%d",&tst);
+    while(tst--){
+        large=0;
+        scanf("%d%d",&l,&u);
+        for(i=l; i<=u; i++){
+            num=divisor(i);
+            if(num>large){
+                large=num;
+                large_divisor=i;
+            }
+        }
+
+        printf("Between %d and %d, %d has a maximum of %d divisors.\n",l,u,large_divisor,large);
+    }
+
+    return 0;
+}

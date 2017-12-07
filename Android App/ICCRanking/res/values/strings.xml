@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ICC Ranking</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_odi">ODIActivity</string>
+
+    <string-array name="T20countryName">
+        <item>Pakistan</item>
+        <item>New Zealand</item>
+        <item>West Indies</item>
+        <item>England</item>
+        <item>India</item>
+        <item>South Africa</item>
+        <item>Australia</item>
+        <item>Srilanka</item>
+        <item>Afghanistan</item>
+        <item>Bangladesh</item>
+        <item>Scotland</item>
+        <item>Zimbabwe</item>
+        <item>UAE</item>
+        <item>Netherlands</item>
+        <item>Hong Kong</item>
+        <item>Papua New Guinea</item>
+        <item>Oman</item>
+        <item>Ireland</item>
+    </string-array>
+    
+    <string-array name="TestcountryName">
+        <item>India</item>
+        <item>South Africa</item>
+        <item>England</item>
+        <item>New Zealand</item>
+        <item>Australia</item>
+        <item>Srilanka</item>
+        <item>Pakistan</item>
+        <item>West Indies</item>
+        <item>Bangladesh</item>
+        <item>Zimbabwe</item>
+    </string-array>
+    
+    <string-array name="countryName">
+        <item>South Africa</item>
+        <item>India</item>
+        <item>Australia</item>
+        <item>England</item>
+        <item>New Zealand</item>
+        <item>Pakistan</item>
+        <item>Bangladesh</item>
+        <item>Srilanka</item>
+        <item>West Indies</item>
+        <item>Afghanistan</item>
+        <item>Zimbabwe</item>
+        <item>Ireland</item>
+    </string-array>
+
+    <string name="title_activity_t20">T20Activity</string>
+    <string name="title_activity_test">TestActivity</string>
+
+</resources>
