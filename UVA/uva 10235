@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define size_n 1000000
+#define size_p 1000000
+
+bool flag[size_n+5];
+
+int sieve()
+{
+    int i, j, total=1, val;
+
+    for(i=2; i<=size_n; i++) flag[i]=1;
+
+    val=sqrt(size_n)+1;
+
+    for(i=2; i<val; i++)
+    {
+        if(flag[i])
+        {
+            for(j=i; j*i<=size_n; j++)
+            {
+                flag[i*j]=0;
+            }
+        }
+    }
+}
+int reverse_of_n(int n)
+{
+    int r, rvrs=0;
+
+    if(n<10)
+        return n;
+
+    while(n!=0){
+        r=n%10;
+        rvrs=rvrs*10+r;
+        n/=10;
+    }
+
+    return rvrs;
+}
+int main()
+{
+    sieve();
+    int n, reverse_n;
+    while(scanf("%d",&n)==1){
+
+        reverse_n=reverse_of_n(n);
+
+        if((flag[n]==1 && flag[reverse_n]==1) && (n!=reverse_n)) printf("%d is emirp.\n",n);
+        else if(flag[n]==1) printf("%d is prime.\n",n);
+        else printf("%d is not prime.\n",n);
+
+    }
+
+
+    return 0;
+}
