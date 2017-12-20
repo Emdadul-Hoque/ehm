@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+long long int cnt, arr[1000000];
+long long int parse(long long int n)
+{
+    if(n<1000000) {
+        if(arr[n]) {
+            return cnt+=arr[n];
+        }
+    }
+    cnt++;
+    if(n==1) return cnt;
+    if(n%2==0) parse(n>>=1);
+    else parse(3*n+1);
+}
+int main()
+{
+    for(long long int i=1; i<1000000; i++) {
+        cnt=0;
+        arr[i]=parse(i);
+    }
+    long long int num1, num2, maxi, flag;
+    while(scanf("%lld%lld",&num1,&num2)==2) {
+        maxi=0, flag=0;
+        if(num1>num2) {
+            swap(num1, num2);
+            flag=1;
+        }
+        for(long long int j=num1; j<=num2; j++) {
+            if(arr[j]>maxi) maxi=arr[j];
+        }
+        if(!flag) printf("%lld %lld %lld\n",num1,num2,maxi);
+        else printf("%lld %lld %lld\n",num2,num1,maxi);
+    }
+    return 0;
+}
