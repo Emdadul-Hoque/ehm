@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define MAX 50
+int path, arr[MAX][MAX], walk[MAX], n, m;
+bool visit[MAX];
+void backTrack(int source, int cnt)
+{
+    walk[cnt]=source;
+    if(cnt==m)
+    {
+        path++;
+        printf("(");
+        for(int i=0; i<cnt+1; i++)
+        {
+            printf("%d", walk[i] + 1);
+            if(i<cnt) printf(",");
+        }
+        printf(")\n");
+        return;
+    }
+
+    for(int i=0; i<n; i++)
+    {
+        if(arr[source][i]==1 && !visit[i])
+        {
+            visit[i]=true;
+            backTrack(i,cnt+1);
+            visit[i]=false;
+        }
+    }
+
+}
+int main()
+{
+    while(true)
+    {
+        scanf("%d%d",&n,&m);
+        for(int i=0; i<n; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                scanf("%d",&arr[i][j]);
+            }
+            visit[i]=false;
+        }
+        path=0;
+        visit[0]=true;
+        backTrack(0,0);
+        if(path==0)
+            printf("no walk of length %d\n", m);
+
+        if(scanf("%d",&n) == -1)
+            break;
+        else printf("\n");
+    }
+    return 0;
+}
