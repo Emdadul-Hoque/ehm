@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define size_n 1000000
+#define size_p 1000000
+
+bool flag[size_n+5];
+int digitPrime[size_n+5]={0};
+
+int number_sum(int n)
+{
+    int sum=0;
+    while(n>9){
+        sum+=(n%10);
+        n/=10;
+    }
+    sum+=n;
+
+    return sum;
+}
+
+void sieve()
+{
+    int i, j, val;
+
+    for(i=2; i<=size_n; i++) flag[i]=1;
+
+    val=sqrt(size_n)+1;
+
+    for(i=2; i<val; i++)
+    {
+        if(flag[i])
+        {
+            for(j=i; j*i<=size_n; j++)
+            {
+                flag[i*j]=0;
+            }
+        }
+    }
+
+    digitPrime[0]=0;
+
+    for(i=1; i<=1000000; i++)
+    {
+        digitPrime[i]=digitPrime[i-1];
+        if(flag[i])
+        {
+            if(flag[number_sum(i)]){
+                digitPrime[i]++;
+            }
+        }
+    }
+
+}
+
+int main()
+{
+    sieve();
+
+    int tst, n1, n2;
+
+    scanf("%d",&tst);
+    while(tst--){
+        scanf("%d%d",&n1,&n2);
+
+        printf("%d\n",digitPrime[n2]-digitPrime[n1-1]);
+    }
+    return 0;
+}
+
+
