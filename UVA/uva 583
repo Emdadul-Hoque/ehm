@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    long long int prime[4792], pos=1;
+    bool isprime[46340];
+    memset(isprime, true, 46340);
+    prime[0]=2;
+    for(long long i=3; i<46340; i+=2){
+        if(isprime[i]){
+            for(long long j=i*i; j<46340; j+=i){
+                isprime[j]=false;
+            }
+            prime[pos++]=i;
+        }
+    }
+    int num;
+    bool check;
+    while(scanf("%d",&num)==1){
+        if(num==0) return 0;
+        check=true;
+        printf("%d =",num);
+        if(num<0){
+            printf(" -1");
+            num*=(-1);
+            check=false;
+        }
+        if(num==1){
+            if(check) printf(" 1\n");
+            else printf("\n");
+            continue;
+        }
+        for(pos=0; prime[pos]*prime[pos]<=num && pos < 4792; pos++){
+            while(num%prime[pos]==0){
+                if(!check)
+                    printf(" x %d",prime[pos]);
+                else
+                    printf(" %d",prime[pos]);
+                check=false;
+                num/=prime[pos];
+            }
+        }
+        if(num>1){
+            if(check) printf(" %d",num);
+            else printf(" x %d",num);
+        }
+        printf("\n");
+    }
+    return 0;
+}
