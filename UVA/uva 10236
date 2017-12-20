@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define MAX 300000
+#define N 250000
+#define M 22001
+
+bool sieve[MAX];
+int prime[M];
+double fib[N] = { 0, 1 };
+
+void getFibPrime()
+{
+    bool div = false;
+    for (int i = 2; i < N; i++)
+    {
+        if (div)
+        {
+            fib[i] = fib[i - 1] + fib[i - 2] / 10;
+            div = false;
+        }
+        else
+            fib[i] = fib[i - 1] + fib[i - 2];
+
+        if (fib[i] >= 1e9)
+        {
+            fib[i] /= 10;
+            div = true;
+        }
+    }
+}
+
+void getPrime()
+{
+    int s = sqrt(MAX);
+    for (int i = 2; i < s; i++)
+    {
+        if (!sieve[i])
+        {
+            for (int j = i <<1; j < MAX; j += i)
+                sieve[j] = true;
+        }
+    }
+
+    int cnt = 1;
+    for (int i = 2; i < MAX; i++)
+    {
+        if (!sieve[i])
+            prime[cnt++] = i;
+    }
+}
+
+int main()
+{
+    getPrime();
+    getFibPrime();
+    int n;
+    fib[2] = 2;
+    fib[3] = 3;
+    while (scanf("%d", &n) != EOF)
+        printf("%d\n", (int)fib[prime[n]]);
+
+    return 0;
+}
