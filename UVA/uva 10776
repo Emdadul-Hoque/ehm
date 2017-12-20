@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<char> v;
+int r, length;
+char str[40];
+bool taken[110];
+
+void bt()
+{
+    int n;
+    if(v.size() == r)
+    {
+        for(int i = 0; i < v.size(); i ++) printf("%c", v[i]);
+        printf("\n");
+        return ;
+    }
+    for(int i = 0; i < length; i ++)
+    {
+        if(v.size()>0 && v[v.size()-1]>str[i]) continue;
+        if(taken[i] == false)
+        {
+            v.push_back(str[i]);
+            taken[i] = true;
+            bt();
+            taken[i] = false;
+            v.pop_back();
+            while(str[i]==str[i+1] && i<length-1) i++;
+        }
+    }
+}
+
+int main ()
+{
+    while(scanf("%s %d",str,&r)==2){
+        length=strlen(str);
+        sort(str, str+length);
+        v.clear();
+        memset(taken, false, sizeof taken);
+        bt();
+    }
+
+    return 0;
+}
