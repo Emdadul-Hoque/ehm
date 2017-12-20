@@ -1,0 +1,75 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define mx 20000000
+
+int sum_of_n[mx+5]={0};
+
+bool Check(int N,int pos){return (bool)(N & (1<<pos));}
+long long int Set(int N,int pos){	return N=N | (1<<pos);}
+static long int status[(mx/32)+2];
+
+int number_sum(int n)
+{
+    int sum=0;
+    while(n>9){
+        sum+=(n%10);
+        n/=10;
+    }
+    sum+=n;
+
+    return sum;
+}
+
+void sieve()
+{
+	 long long int i, j, sqrtN;
+     sqrtN = sqrt( mx ) ;
+     for( i = 3; i <= sqrtN; i += 2 )
+     {
+		 if( Check(status[i>>5],i&31)==0)
+		 {
+	 		 for( j = i*i; j <= mx; j += (i<<1) )
+			 {
+				 status[j>>5]=Set(status[j>>5],j&31);
+	 		 }
+		 }
+	 }
+
+	 sum_of_n[2]=2;
+
+	 for(i=3;i<=mx;i+=2){
+		 if( Check(status[i>>5],i&31)==0){
+            sum_of_n[i]=number_sum(i);
+		 }
+	 }
+}
+int main()
+{
+    sieve();
+
+    int i, tst, n1, n2, c;
+
+    scanf("%d",&tst);
+    while(tst--){
+
+        c=0;
+
+        scanf("%d%d",&n1,&n2);
+
+        for(i=n1; i<=n2; i++){
+            if(sum_of_n[i]){
+                if(Check(status[sum_of_n[i]>>5],sum_of_n[i]&31)==0){
+                        printf("i=%d, sum_of_n[%d]=%d\n",i,i,sum_of_n[i]);
+                        c++;
+                }
+            }
+        }
+
+        printf("%d\n",c);
+    }
+    return 0;
+}
+
+
+
