@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+int value_of_M[1000001];
+int flag[1000001];
+int primes[100000];
+void sieve()
+{
+    int i, j, total=0, val;
+
+    val=sqrt(1000001)+1;
+
+    flag[1]=1, value_of_M[1]=1;
+
+    for(i=2; i<1000001; i++) flag[i]=-1;
+
+    for(i=2; i<val; i++){
+        if(flag[i]==-1){
+            for(j=i; j*i<1000001; j++){
+                if(j%i==0) flag[i*j]=0;
+                else if(flag[i*j]==-1) flag[i*j]=1;
+            }
+        }
+    }
+
+    for(i=2; i<1000001; i++){
+        if(flag[i]==-1) primes[total++]=i;
+        else if(flag[i]==1){
+            int j, cnt=0, num=i;
+            int val=sqrt(num)+1;
+            for(j=0; primes[j]<val; j++){
+                if(num%primes[j]==0){
+                    num/=primes[j];
+                    cnt++;
+                }
+                if(num==1) break;
+            }
+            if(num==1){
+                if(cnt%2!=0) flag[i]=-1;
+            }
+            else{
+                if(cnt%2==0) flag[i]=-1;
+            }
+        }
+        value_of_M[i]=value_of_M[i-1]+flag[i];
+    }
+}
+int main()
+{
+    sieve();
+    int number;
+    while(scanf("%d",&number)==1){
+        if(number==0) return 0;
+        printf("%8d%8d%8d\n",number,flag[number],value_of_M[number]);
+    }
+
+    return 0;
+}
