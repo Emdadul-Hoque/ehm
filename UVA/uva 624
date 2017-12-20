@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int>v;
+vector<int>selected_track;
+int n, r, taken[100], large, highest_track;
+int total_track, minute, tracks[21], sum, equal_track, c;
+void bt(int p)
+{
+    if(sum>large || ((sum==large) && (v.size() > selected_track.size())))
+    {
+        large=sum;
+        selected_track=v;
+    }
+
+    for(int i = p; i < total_track; i++)
+    {
+        if(sum+tracks[i] <= minute)
+        {
+            v.push_back(tracks[i]);
+            sum+=tracks[i];
+            bt(i+1);
+            sum-=tracks[i];
+            v.pop_back();
+        }
+    }
+}
+
+int main ()
+{
+    int i;
+    while(scanf("%d",&minute)==1)
+    {
+        scanf("%d",&total_track);
+        for(i=0; i<total_track; i++) scanf("%d",&tracks[i]);
+        selected_track.clear();
+        v.clear();
+        sum=0;
+        large=0;
+        memset(taken, 100, false);
+        bt(0);
+        sum=0;
+        for(i=0; i<selected_track.size(); i++){
+            printf("%d ",selected_track[i]);
+            sum+=selected_track[i];
+        }
+        printf("sum:%d\n",sum);
+    }
+
+    return 0;
+}
