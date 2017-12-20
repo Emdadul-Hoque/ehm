@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> v;
+int r, t=0;
+bool taken[110];
+bool primes[]= {0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0,
+                0, 0, 0, 0, 1, 0, 1, 0, 0
+               };
+void bt()
+{
+    if(v.size() == r && primes[v[v.size()-1]+1])
+    {
+        for(int i = 0; i < v.size(); i ++)
+        {
+            printf(i == v.size() - 1? "%d" : "%d ", v[i]);
+        }
+        printf("\n");
+        return ;
+    }
+    for(int i = 2; i <= r; i ++)
+    {
+
+        if(taken[i] == false && primes[v[v.size()-1]+i])
+        {
+            v.push_back(i);
+            taken[i] = true;
+            bt();
+            taken[i] = false;
+            v.pop_back();
+        }
+    }
+}
+int main()
+{
+    while(scanf("%d",&r)==1)
+    {
+        t++;
+        if(t > 1) printf("\n");
+        v.clear();
+        memset(taken, false, sizeof taken);
+        v.push_back(1);
+        printf("Case %d:\n", t);
+        bt();
+    }
+    return 0;
+}
