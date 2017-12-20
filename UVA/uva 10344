@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n[10];
+bool bt(int step, long sum)
+{
+    if(step==5)
+    {
+        if(sum==23) return true;
+        else return false;
+    }
+    return bt(step+1,sum+n[step]) || bt(step+1,sum*n[step]) || bt(step+1,sum-n[step]);
+}
+int main()
+{
+    while(scanf("%d%d%d%d%d",&n[0],&n[1],&n[2],&n[3],&n[4]))
+    {
+        if(n[0]==0 && n[1]==0 && n[2]==0 && n[3]==0 && n[4]==0) return 0;
+        sort(n,n+5);
+        bool state=false;
+        do
+        {
+            if(bt(1,n[0]))
+            {
+                state=true;
+                break;
+            }
+        }
+        while(next_permutation(n,n+5));
+        if(state) printf("Possible\n");
+        else printf("Impossible\n");
+    }
+    return 0;
+}
