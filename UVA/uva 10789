@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define size_n 2500
+#define size_p 2500
+
+bool flag [size_n+5];
+
+void sieve()
+{
+    int i, j, value;
+
+    for(i=2; i<=size_n; i++) flag[i]=1;
+
+    value=sqrt(size_n)+1;
+
+    for(i=2; i<value; i++){
+        if(flag[i]){
+            for(j=i; j*i<=size_n; j++){
+                flag[i*j]=0;
+            }
+        }
+    }
+}
+
+int main()
+{
+    int c, i, kase, tst;
+    char str[2500];
+    scanf("%d",&tst);
+    sieve();
+    for(kase=1; kase<=tst; kase++){
+        scanf("%s",str);
+        c=0;
+        int arr[200]={0};
+        for(i=0; i<strlen(str); i++){
+            arr[(int)str[i]]++;
+        }
+        printf("Case %d: ",kase);
+        for(i=0; i<200; i++){
+            if(arr[i]){
+                if(flag[arr[i]]){
+                    printf("%c",i);
+                    c++;
+                }
+            }
+        }
+        if(c==0) printf("empty\n");
+        else printf("\n");
+    }
+    return 0;
+}
